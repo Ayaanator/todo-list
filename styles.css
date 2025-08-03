@@ -1,0 +1,60 @@
+:root {
+    --high-priority: #eb5757;
+    --medium-priority: #eba857;
+    --low-priority: #a1eb57;
+
+    --background-color: #2e2a33;
+}
+
+.light-mode {
+    --background-color: #bad4d2;
+}
+
+html {
+    background-color: var(--background-color);
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border: 1px solid blue;
+}
+
+header img {
+    width: 5vw;
+    height: 5vh;
+}
+
+#pfp {
+    width: 3.5vw;
+    height: 7vh;
+
+    border-radius: 50%;
+}
+
+.container {
+    display: flex;
+}
+
+.sidebar {
+    display: flex;
+    flex: 1;
+    border: 1px solid red;
+}
+
+.content {
+    display: flex;
+    flex: 5;
+    border: 1px solid purple;
+}
+
+.clickable {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.clickable:hover {
+  transform: scale(1.125); 
+}
