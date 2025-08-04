@@ -4,14 +4,27 @@
     --low-priority: #a1eb57;
 
     --background-color: #2e2a33;
+    --text-color: #c7ece9;
+    --accent-color: #8eaaa8;
 }
 
 .light-mode {
-    --background-color: #bad4d2;
+    --background-color: #c7ece9;
+    --text-color: #2e2a33;
+    --accent-color: #6c6377;
 }
 
 html {
     background-color: var(--background-color);
+    color: var(--text-color);
+
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
 }
 
 header {
@@ -40,14 +53,38 @@ header img {
 
 .sidebar {
     display: flex;
+    align-items: center;
     flex: 1;
     border: 1px solid red;
+
+    padding: 10px;
+}
+
+#project-button {
+    width: 10vw;
+    height: 6vh;
+    border-radius: 20px;
+
+    color: var(--background-color);
+    background-color: var(--text-color);
+    border: none;
+
+    font-size: larger;
+
+    transition: all 0.3s ease;
+}
+
+#project-button:hover {
+    transform: translateY(-5px);
+    background-color: var(--accent-color);
 }
 
 .content {
     display: flex;
     flex: 5;
     border: 1px solid purple;
+
+    padding: 10px;
 }
 
 .clickable {
@@ -56,5 +93,61 @@ header img {
 }
 
 .clickable:hover {
-  transform: scale(1.125); 
+  transform: scale(1.125);
+}
+
+#project-modal {
+    padding: 0;
+
+    border-radius: 10px;
+    border: none;
+}
+
+#project-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+
+    background-color: var(--text-color);
+    color: var(--background-color);
+
+    font-size: x-large;
+}
+
+#project-form button {
+    border-radius: 5px;
+    height: 4vh;
+    font-size: large;
+
+    background-color: var(--background-color);
+    color: var(--text-color);
+
+    border: none;
+}
+
+#project-form input {
+    border-radius: 5px;
+    height: 3vh;
+    font-size: large;
+
+    color: var(--text-color);
+    background-color: var(--background-color);
+
+    border: none;
+}
+
+#projects {
+    display: flex;
+    flex-direction: column;
+}
+
+#projects img {
+    height: 4vh;
+    width: 4vw;
+}
+
+#project {
+    display: flex;
+    flex-direction: row;
 }
