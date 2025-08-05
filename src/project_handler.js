@@ -1,27 +1,6 @@
-const { createElement } = require("react");
+import { Project } from "./project";
 
-class ThemeToggler {
-    #darkMode = true; 
-
-    constructor() {
-        this.button = document.querySelector("#theme-button");
-        this.button.addEventListener("click", () => this.toggle_theme());
-    }
-
-    toggle_theme() {
-        document.documentElement.classList.toggle("light-mode");
-        this.#darkMode = !this.#darkMode;
-        this.update_icon();
-    }
-
-    update_icon() {
-        this.button.src = this.#darkMode
-            ? "images/dark-mode.svg"
-            : "images/light-mode.svg";
-    }
-}
-
-class ProjectHandler {
+export class ProjectHandler {
     #projects = [];
 
     constructor() {
@@ -56,18 +35,3 @@ class ProjectHandler {
         this.project_modal.reset();
     }
 }
-
-class Project {
-    #project_name;
-
-    constructor(name) {
-        this.#project_name = name;
-    }
-}
-
-class ToDo {
-
-}
-
-const theme = new ThemeToggler();
-const project_handler = new ProjectHandler();
