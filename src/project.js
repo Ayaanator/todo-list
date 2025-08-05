@@ -6,4 +6,8 @@ export class Project {
     constructor(name) {
         this.#project_name = name;
     }
+
+    get_name() {
+        return this.#project_name;
+    }
 }
