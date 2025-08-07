@@ -1,5 +1,7 @@
 import { Project } from "./project";
+
 import files_icon from './images/files.svg';
+import delete_icon from "./images/trash.svg"
 
 export class ProjectHandler {
     #projects = [];
@@ -29,12 +31,12 @@ export class ProjectHandler {
         }
 
         this.#projects.forEach((val) => {
-            const project = this.create_project(val.get_name());
+            const project = this.create_project(val.get_name(), val.get_id());
             this.project_container.appendChild(project);
         });
     }
 
-    create_project(name) {
+    create_project(name, project_id) {
         const project_div = document.createElement("div");
         const project_text = document.createElement("p");
         const files_img = document.createElement("img");
@@ -43,13 +45,31 @@ export class ProjectHandler {
         files_img.src = files_icon;
         project_text.textContent = name;
 
+        files_img.addEventListener('mouseenter', () => {
+            files_img.src = delete_icon;
+        });
+
+        files_img.addEventListener('mouseleave', () => {
+            files_img.src = files_icon;
+        });
+
+        files_img.addEventListener("click", () => {
+            this.project_container.removeChild(project_div);
+
+            const index = this.#projects.findIndex(b => b.get_id() === project_id);
+            if (index !== -1) {
+                this.#projects.splice(index, 1);
+            }
+        })
+
+
         project_div.appendChild(files_img);
         project_div.appendChild(project_text);
 
         return project_div;
     }
     
-     close_modal() {
+    close_modal() {
         this.project_modal.close();
         this.project_form.reset();
     }
