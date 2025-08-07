@@ -31,19 +31,24 @@ export class ProjectHandler {
         }
 
         this.#projects.forEach((val) => {
-            const project = this.create_project(val.get_name(), val.get_id());
+            const project = this.create_project(val);
             this.project_container.appendChild(project);
         });
     }
 
-    create_project(name, project_id) {
+    create_project(project) {
         const project_div = document.createElement("div");
         const project_text = document.createElement("p");
         const files_img = document.createElement("img");
         
         project_div.className = "project";
         files_img.src = files_icon;
-        project_text.textContent = name;
+        project_text.textContent = project.get_name();
+        project_text.className = "project-clickable";
+
+        project_text.addEventListener("click", () => {
+            project.greet();
+        })
 
         files_img.addEventListener('mouseenter', () => {
             files_img.src = delete_icon;
@@ -56,12 +61,11 @@ export class ProjectHandler {
         files_img.addEventListener("click", () => {
             this.project_container.removeChild(project_div);
 
-            const index = this.#projects.findIndex(b => b.get_id() === project_id);
+            const index = this.#projects.findIndex(b => b.get_id() === project.get_id());
             if (index !== -1) {
                 this.#projects.splice(index, 1);
             }
         })
-
 
         project_div.appendChild(files_img);
         project_div.appendChild(project_text);

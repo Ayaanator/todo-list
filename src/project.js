@@ -20,4 +20,8 @@ export class Project {
     get_id() {
         return this.#project_id;
     }
+
+    greet() {
+        console.log(`Hello from project: ${this.#project_name}`);
+    }
 }

@@ -160,3 +160,12 @@ header img {
 
     font-size: large;
 }
+
+.project-clickable {
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.project-clickable:hover {
+    color: #007BFF;
+    text-decoration: underline;
+}
