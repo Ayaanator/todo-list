@@ -1,16 +1,15 @@
 import { ToDo } from "./todo.js";
-
-function generate_random_id(prefix = "id") {
-  return prefix + "_" + Math.random().toString(36).substr(2, 9);
-}
+import { generate_random_id } from "./utils.js";
 
 export class Project {
     #project_name;
     #project_id;
 
+    #todos = [];
+
     constructor(name) {
         this.#project_name = name;
-        this.#project_id = generate_random_id("library");
+        this.#project_id = generate_random_id("project");
 
         this.todo_button = document.querySelector("#todo-button");
         this.todo_modal = document.querySelector("#todo-modal");
@@ -20,23 +19,26 @@ export class Project {
 
         this.todo_button.addEventListener("click", () => {this.todo_modal.showModal();});
         this.cancel_todo.addEventListener("click", () => this.close_modal());
-        this.todo_form.addEventListener("submit", (e) => { this.add_todo(); e.preventDefault(); });
+        this.todo_form.addEventListener("submit", (e) => { e.preventDefault(); this.add_todo(); });
     }
 
-    get_name() {
-        return this.#project_name;
-    }
-
-    get_id() {
-        return this.#project_id;
-    }
+    get_name() { return this.#project_name; }
+    get_id() { return this.#project_id; }
 
     add_todo() {
+        const name = document.querySelector("#todo-name").value;
+        const description = document.querySelector("#description").value;
+        const due_date = document.querySelector("#due-date").value;
+        const priority = document.querySelector("#priority").value;
+
+        const my_todo = new ToDo(name, description, due_date, priority)
+        this.#todos.push(my_todo);
+
         this.close_modal();
     }
 
     greet() {
-        console.log(`Hello from project: ${this.#project_name}`);
+        console.log(`Hello from project: ${this.#project_id}`);
     }
 
     close_modal() {
