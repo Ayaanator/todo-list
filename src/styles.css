@@ -64,7 +64,7 @@ header img {
     padding: 10px;
 }
 
-#project-button {
+.click-button {
     width: 10vw;
     height: 6vh;
     border-radius: 20px;
@@ -78,13 +78,14 @@ header img {
     transition: all 0.3s ease;
 }
 
-#project-button:hover {
+.click-button:hover {
     transform: translateY(-5px);
     background-color: var(--accent-color);
 }
 
 .content {
     display: flex;
+    justify-content: end;
     flex: 5;
     border: 1px solid purple;
 
@@ -100,14 +101,14 @@ header img {
   transform: scale(1.125);
 }
 
-#project-modal {
+.modal {
     padding: 0;
 
     border-radius: 10px;
     border: none;
 }
 
-#project-form {
+.form {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -119,7 +120,7 @@ header img {
     font-size: x-large;
 }
 
-#project-form button {
+.form button {
     border-radius: 5px;
     height: 4vh;
     font-size: large;
@@ -130,7 +131,7 @@ header img {
     border: none;
 }
 
-#project-form input {
+.form input {
     border-radius: 5px;
     height: 3vh;
     font-size: large;
@@ -139,6 +140,36 @@ header img {
     background-color: var(--background-color);
 
     border: none;
+}
+
+.form textarea {
+    border-radius: 5px;
+    font-size: large;
+
+    color: var(--text-color);
+    background-color: var(--background-color);
+
+    padding: 10px;
+    border: none;
+}
+
+.form select {
+    border-radius: 5px;
+    font-size: large;
+
+    color: var(--text-color);
+    background-color: var(--background-color);
+
+    padding: 5px;
+    border: none;
+}
+
+.form input {
+    padding: 5px;
+}
+
+#todo-form {
+    flex-direction: column;
 }
 
 #projects {
@@ -165,7 +196,9 @@ header img {
     cursor: pointer;
     transition: color 0.2s;
 }
+
 .project-clickable:hover {
     color: #007BFF;
     text-decoration: underline;
 }
+
