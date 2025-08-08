@@ -43,6 +43,7 @@ export class ProjectHandler {
         
         project_div.className = "project";
         files_img.src = files_icon;
+        files_img.className = "delete-project";
         project_text.textContent = project.get_name();
         project_text.className = "project-clickable";
 

@@ -4,12 +4,14 @@
     --low-priority: #a1eb57;
 
     --background-color: #2e2a33;
+    --secondary-color: #524c5a;
     --text-color: #c7ece9;
     --accent-color: #8eaaa8;
 }
 
 .light-mode {
     --background-color: #c7ece9;
+    --secondary-color: #9ec2bf;
     --text-color: #2e2a33;
     --accent-color: #6c6377;
 }
@@ -81,15 +83,6 @@ header img {
 .click-button:hover {
     transform: translateY(-5px);
     background-color: var(--accent-color);
-}
-
-.content {
-    display: flex;
-    justify-content: end;
-    flex: 5;
-    border: 1px solid purple;
-
-    padding: 10px;
 }
 
 .clickable {
@@ -202,3 +195,63 @@ header img {
     text-decoration: underline;
 }
 
+.content {
+    display: flex;
+    flex-direction: column;
+    flex: 5;
+    border: 1px solid purple;
+
+    padding: 10px;
+}
+
+#todo-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.todo {
+    display: flex;
+    flex: 1;
+    
+    background-color: var(--secondary-color);
+    border-radius: 15px;
+    
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.high-priority {
+    border-left: 30px solid var(--high-priority);
+}
+
+.medium-priority {
+    border-left: 30px solid var(--medium-priority);
+}
+
+.low-priority {
+    border-left: 30px solid var(--low-priority);
+}
+
+.todo-content {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+.delete-todo {
+    height: 6vh;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.delete-todo:hover {
+    transform: scale(1.125);
+}
+
+.delete-project {
+    cursor: pointer;
+}

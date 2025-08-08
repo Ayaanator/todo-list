@@ -37,6 +37,10 @@ export class Project {
         this.close_modal();
     }
 
+    create_todo() {
+        const todo_div = document.createElement("div");
+    }
+
     greet() {
         console.log(`Hello from project: ${this.#project_id}`);
     }
