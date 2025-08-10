@@ -5,17 +5,21 @@ import delete_icon from "./images/trash.svg"
 
 export class ProjectHandler {
     #projects = [];
+    #current_project;
 
     constructor() {
+        // Projects
         this.button = document.querySelector("#project-button");
         this.project_modal = document.querySelector("#project-modal");
         this.project_form = document.querySelector("#project-form");
         this.cancel_button = document.querySelector("#cancel-button");
         this.project_container = document.querySelector("#projects");
+        this.pfp = document.querySelector("#pfp");
 
         this.button.addEventListener("click", () => {this.project_modal.showModal();});
         this.cancel_button.addEventListener("click", () => this.close_modal());
         this.project_form.addEventListener("submit", (e) => { this.add_project(); e.preventDefault(); });
+        this.pfp.addEventListener("click", () => {this.debug();});
     }
 
     add_project() {
@@ -51,6 +55,7 @@ export class ProjectHandler {
             project.greet();
         })
 
+        // Delete functionality
         files_img.addEventListener('mouseenter', () => {
             files_img.src = delete_icon;
         });
@@ -66,6 +71,23 @@ export class ProjectHandler {
             if (index !== -1) {
                 this.#projects.splice(index, 1);
             }
+
+            if(project.current == true) {
+                project.clear_todos();
+            }
+        })
+
+        // Switching functionality
+        project_text.addEventListener("click", () => {
+            project.current = true;
+
+            this.#projects.forEach((val) => {
+                if(val.get_id() != project.get_id()) {
+                    val.current = false;
+                }
+            });
+
+            project.update_todos();
         })
 
         project_div.appendChild(files_img);
@@ -77,5 +99,11 @@ export class ProjectHandler {
     close_modal() {
         this.project_modal.close();
         this.project_form.reset();
+    }
+
+    debug() {
+        this.#projects.forEach((val) => {
+            console.log(`${val.get_id()} ${val.current}`);
+        });
     }
 }

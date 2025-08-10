@@ -1,9 +1,11 @@
 import { ToDo } from "./todo.js";
 import { generate_random_id } from "./utils.js";
+import delete_icon from "./images/trash.svg"
 
 export class Project {
     #project_name;
     #project_id;
+    current;
 
     #todos = [];
 
@@ -20,25 +22,69 @@ export class Project {
         this.todo_button.addEventListener("click", () => {this.todo_modal.showModal();});
         this.cancel_todo.addEventListener("click", () => this.close_modal());
         this.todo_form.addEventListener("submit", (e) => { e.preventDefault(); this.add_todo(); });
+
+        this.current = false;
     }
 
     get_name() { return this.#project_name; }
     get_id() { return this.#project_id; }
 
     add_todo() {
-        const name = document.querySelector("#todo-name").value;
-        const description = document.querySelector("#description").value;
-        const due_date = document.querySelector("#due-date").value;
-        const priority = document.querySelector("#priority").value;
+        if(this.current == true) {
+            const name = document.querySelector("#todo-name").value;
+            const description = document.querySelector("#description").value;
+            const due_date = document.querySelector("#due-date").value;
+            const priority = document.querySelector("#priority").value;
 
-        const my_todo = new ToDo(name, description, due_date, priority)
-        this.#todos.push(my_todo);
-
-        this.close_modal();
+            const my_todo = new ToDo(name, description, due_date, priority)
+            this.#todos.push(my_todo);
+            this.update_todos();
+            this.close_modal();
+        }   
     }
 
-    create_todo() {
+    update_todos() {
+        if(this.current == true) {
+            while (this.todo_container.firstChild) {
+                this.todo_container.removeChild(this.todo_container.firstChild);
+            }
+
+            this.#todos.forEach((val) => {
+                const todo = this.create_todo(val);
+                this.todo_container.appendChild(todo);
+            });
+        } else {
+            console.log("false");
+        }
+    }
+
+    create_todo(todo) {
+        // Outer content
         const todo_div = document.createElement("div");
+        todo_div.classList.add("todo");
+        todo_div.classList.add(todo.get_priority());
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.className = "todo-complete";
+        todo_div.appendChild(checkbox);
+
+        // Inner content
+        const todo_content = document.createElement("div");
+        todo_content.className = "todo-content";
+
+        const title = document.createElement("h1");;
+        title.textContent = todo.get_name();
+
+        const deleter = document.createElement("img");
+        deleter.className = "delete-todo";
+        deleter.src = delete_icon;
+
+        todo_content.appendChild(title);
+        todo_content.appendChild(deleter);
+        todo_div.appendChild(todo_content);
+
+        return todo_div;
     }
 
     greet() {
@@ -50,4 +96,9 @@ export class Project {
         this.todo_form.reset();
     }
 
+    clear_todos() {
+        while (this.todo_container.firstChild) {
+            this.todo_container.removeChild(this.todo_container.firstChild);
+        }
+    }
 }

@@ -11,8 +11,9 @@
         <h1>To-Do List!</h1>
         <img src="images/pfp_light.jpg" id="pfp">
     </header>
-
+    
     <div class="container">
+        <!--Project sidebar-->
         <div class="sidebar">
             <button id="project-button" class="click-button">Add Project</button>
             <div id="projects">
@@ -22,15 +23,19 @@
                 </div>
             </div>
         </div>
-
+        <!--Todos containers-->
         <div class="content">
             <button id="todo-button" class="click-button">Add Todo</button>
             <div id="todo-container">
                 <div class="todo high-priority">
+
+                    <input type="checkbox" class="todo-complete">
+
                     <div class="todo-content">
                         <h1>Todo Name</h1>
                         <img src="images/trash.svg" class="delete-todo">
                     </div>
+
                 </div>
 
                 <div class="todo high-priority">
@@ -49,7 +54,7 @@
             </div>
         </div>
     </div>
-
+    <!--Project form-->
     <dialog id="project-modal" class="modal">
         <form id="project-form" class="form">
             <label for="name">Project Name: </label>
@@ -59,7 +64,7 @@
             <button type="button" id="cancel-button">Cancel</button>
         </form>
     </dialog>
-
+    <!--Todo form-->
     <dialog id="todo-modal" class="modal">
         <form id="todo-form" class="form">
             <label for="todo-name">Todo Name: </label>
@@ -74,7 +79,7 @@
             <label for="priority">Priority</label>
             <select name="priority" id="priority">
                 <option value="low-priority">Low</option>
-                <option value="mediun-priority">Medium</option>
+                <option value="medium-priority">Medium</option>
                 <option value="high-priority">High</option>
             </select>
 

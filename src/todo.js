@@ -7,6 +7,7 @@ export class ToDo {
     #todo_description;
     #todo_due_date;
     #todo_priority;
+    #todo_completed;
 
     constructor(name, description, due_date, priority) {
         this.#todo_name = name;
@@ -15,6 +16,7 @@ export class ToDo {
         this.#todo_priority = priority;
 
         this.#todo_id = generate_random_id("todo");
+        this.#todo_completed = false;
     }
 
     get_id() { return this.#todo_id; }

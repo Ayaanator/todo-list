@@ -213,6 +213,8 @@ header img {
 .todo {
     display: flex;
     flex: 1;
+    align-items: center;
+    gap: 20px;
     
     background-color: var(--secondary-color);
     border-radius: 15px;
@@ -253,5 +255,12 @@ header img {
 }
 
 .delete-project {
+    cursor: pointer;
+}
+
+.todo-complete {
+    width: 25px;
+    height: 25px;
+    accent-color: var(--accent-color); /* change tick color */
     cursor: pointer;
 }
