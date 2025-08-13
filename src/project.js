@@ -1,6 +1,7 @@
 import { ToDo } from "./todo.js";
 import { generate_random_id } from "./utils.js";
 import delete_icon from "./images/trash.svg"
+import menu_icon from "./images/menu-right.svg"
 
 export class Project {
     #project_name;
@@ -65,6 +66,17 @@ export class Project {
         const todo_div = document.createElement("div");
         todo_div.classList.add("todo");
         todo_div.classList.add(todo.get_priority());
+        const menu_button = document.createElement("img");
+        menu_button.classList.add("menu");
+        menu_button.classList.add("clickable");
+        menu_button.src = menu_icon;
+        todo_div.appendChild(menu_button);
+
+        menu_button.addEventListener('click', () => {
+            menu_button.classList.toggle('open');
+            todo.toggle_open();
+            console.log(`${todo.get_id()}: ${todo.open}`);
+        });
 
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";

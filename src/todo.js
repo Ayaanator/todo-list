@@ -1,5 +1,4 @@
 import { generate_random_id } from "./utils.js";
-
 export class ToDo {
     #todo_id;
 
@@ -7,7 +6,8 @@ export class ToDo {
     #todo_description;
     #todo_due_date;
     #todo_priority;
-    #todo_completed;
+    todo_completed;
+    open;
 
     constructor(name, description, due_date, priority) {
         this.#todo_name = name;
@@ -16,7 +16,7 @@ export class ToDo {
         this.#todo_priority = priority;
 
         this.#todo_id = generate_random_id("todo");
-        this.#todo_completed = false;
+        this.todo_completed = false;
     }
 
     get_id() { return this.#todo_id; }
@@ -24,4 +24,6 @@ export class ToDo {
     get_description() { return this.#todo_description; }
     get_due_date() { return this.#todo_due_date; }
     get_priority() { return this.#todo_priority; }
+
+    toggle_open() { this.open = !this.open; }
 }

@@ -264,3 +264,13 @@ header img {
     accent-color: var(--accent-color); /* change tick color */
     cursor: pointer;
 }
+
+.menu {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.1s ease;
+}
+
+.menu.open {
+    transform: rotate(90deg); 
+}
