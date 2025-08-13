@@ -11,7 +11,7 @@ export class Project {
 
     constructor(name) {
         this.#project_name = name;
-        this.#project_id = generate_random_id("project");
+        this.#project_id = generate_random_id(name);
 
         this.todo_button = document.querySelector("#todo-button");
         this.todo_modal = document.querySelector("#todo-modal");
@@ -45,6 +45,8 @@ export class Project {
 
     update_todos() {
         if(this.current == true) {
+            console.log(`${this.#project_id} updating todos: ${this.current}`);
+
             while (this.todo_container.firstChild) {
                 this.todo_container.removeChild(this.todo_container.firstChild);
             }

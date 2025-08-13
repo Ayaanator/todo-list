@@ -69,6 +69,7 @@ export class ProjectHandler {
 
             const index = this.#projects.findIndex(b => b.get_id() === project.get_id());
             if (index !== -1) {
+                this.#projects[index].current = false;
                 this.#projects.splice(index, 1);
             }
 
@@ -79,7 +80,6 @@ export class ProjectHandler {
 
         // Switching functionality
         project_text.addEventListener("click", () => {
-            project.current = true;
 
             this.#projects.forEach((val) => {
                 if(val.get_id() != project.get_id()) {
@@ -87,6 +87,9 @@ export class ProjectHandler {
                 }
             });
 
+            project.current = true;
+            this.#current_project = project;
+            console.log("running switch!");
             project.update_todos();
         })
 
