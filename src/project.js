@@ -2,6 +2,7 @@ import { ToDo } from "./todo.js";
 import { generate_random_id } from "./utils.js";
 import delete_icon from "./images/trash.svg"
 import menu_icon from "./images/menu-right.svg"
+import edit_icon from "./images/pencil.svg"
 
 export class Project {
     #project_name;
@@ -66,11 +67,20 @@ export class Project {
         const todo_div = document.createElement("div");
         todo_div.classList.add("todo");
         todo_div.classList.add(todo.get_priority());
+
         const menu_button = document.createElement("img");
         menu_button.classList.add("menu");
         menu_button.classList.add("clickable");
         menu_button.src = menu_icon;
+
+        const edit_button = document.createElement("img");
+        edit_button.classList.add("edit");
+        edit_button.classList.add("clickable");
+        edit_button.src = edit_icon;
+
+
         todo_div.appendChild(menu_button);
+        todo_div.appendChild(edit_button);
 
         menu_button.addEventListener('click', () => {
             menu_button.classList.toggle('open');
@@ -93,6 +103,18 @@ export class Project {
         const deleter = document.createElement("img");
         deleter.className = "delete-todo";
         deleter.src = delete_icon;
+
+        deleter.addEventListener("click", () => {
+            this.todo_container.removeChild(todo_div);
+
+            const index = this.#todos.findIndex(b => b.get_id() === todo.get_id());
+            if (index !== -1) {
+                this.#todos[index].current = false;
+                this.#todos.splice(index, 1);
+            }
+
+            this.update_todos();
+        })
 
         todo_content.appendChild(title);
         todo_content.appendChild(deleter);

@@ -274,3 +274,8 @@ header img {
 .menu.open {
     transform: rotate(90deg); 
 }
+
+.edit {
+    width: 40px;
+    height: 40px;
+}
