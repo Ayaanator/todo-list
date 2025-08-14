@@ -95,5 +95,28 @@
             <button type="button" id="cancel-todo">Cancel</button>
         </form>
     </dialog>
+
+    <dialog id="edit-modal" class="modal">
+        <form id="edit-form" class="form">
+            <label for="edit-name">Todo Name: </label>
+            <input type="text" id="edit-name" name="edit-name" required><br>
+
+            <label for="edit-description">Description: </label>
+            <textarea id="edit-description" name="edit-description" rows="8" cols="50"></textarea>
+
+            <label for="edit-due-date">Due Date: </label>
+            <input type="date" id="edit-due-date" name="edit-due-date">
+
+            <label for="edit-priority">Priority</label>
+            <select name="edit-priority" id="edit-priority">
+                <option value="low-priority">Low</option>
+                <option value="medium-priority">Medium</option>
+                <option value="high-priority">High</option>
+            </select>
+
+            <button type="submit" id="submit-edit">Save Edits</button>
+            <button type="button" id="cancel-edit">Cancel</button>
+        </form>
+    </dialog>
 </body>
 </html>

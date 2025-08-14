@@ -39,7 +39,7 @@ export class Project {
             const due_date = document.querySelector("#due-date").value;
             const priority = document.querySelector("#priority").value;
 
-            const my_todo = new ToDo(name, description, due_date, priority)
+            const my_todo = new ToDo(name, description, due_date, priority);
             this.#todos.push(my_todo);
             this.update_todos();
             this.close_modal();
@@ -56,6 +56,7 @@ export class Project {
 
             this.#todos.forEach((val) => {
                 const todo = this.create_todo(val);
+                val.link_project(this);
                 this.todo_container.appendChild(todo);
             });
         } else {
@@ -82,7 +83,7 @@ export class Project {
         menu_button.classList.add("menu", "clickable");
         menu_button.src = menu_icon;
 
-        menu_button.addEventListener('click', () => {
+        menu_button.addEventListener("click", () => {
             menu_button.classList.toggle("open");
             todo.toggle_open();
             console.log(`${todo.get_id()} open: ${todo.open}`);
@@ -92,6 +93,13 @@ export class Project {
         const edit_button = document.createElement("img");
         edit_button.classList.add("edit", "clickable");
         edit_button.src = edit_icon;
+
+        
+        edit_button.addEventListener("click", () => {
+            console.log("edit clicked!");
+            todo.editing = true;
+            todo.show_modal();
+        });
 
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
@@ -141,7 +149,11 @@ export class Project {
         label.textContent = "Due Date:";
         date.appendChild(label);
 
-        date.append(` ${todo.get_due_date()}`); 
+        if(todo.get_due_date() == "") {
+            date.append(" Indefinite"); 
+        } else {
+            date.append(` ${todo.get_due_date()}`); 
+        }
 
         todo_info.appendChild(info);
         todo_info.appendChild(date);
