@@ -66,6 +66,11 @@ header img {
     padding: 10px;
 }
 
+.button-container {
+    display: flex;
+    gap: 30px;
+}
+
 .click-button {
     width: 10vw;
     height: 6vh;
@@ -212,9 +217,9 @@ header img {
 
 .todo {
     display: flex;
+    flex-direction: column;
     flex: 1;
-    align-items: center;
-    gap: 20px;
+    align-items: start;
     
     background-color: var(--secondary-color);
     border-radius: 15px;
@@ -223,16 +228,17 @@ header img {
     padding: 10px;
 }
 
-/*.todo-info {
+.todo-info {
     max-height: 0;
-    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
     transition: max-height 0.3s ease;
 }
 
 .todo-info.show {
     max-height: 200px;
-}*/
-
+}
 
 .high-priority {
     border-left: 30px solid var(--high-priority);
@@ -247,22 +253,26 @@ header img {
 }
 
 .todo-content {
+    width: 100%;
     display: flex;
     flex: 1;
     flex-direction: row;
     align-items: center;
-
     justify-content: space-between;
+}
+
+.todo-options {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    align-items: center;
+    justify-content: start;
+
+    gap: 10px;
 }
 
 .delete-todo {
     height: 6vh;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.delete-todo:hover {
-    transform: scale(1.125);
 }
 
 .delete-project {
@@ -273,7 +283,6 @@ header img {
     width: 25px;
     height: 25px;
     accent-color: var(--accent-color); /* change tick color */
-    cursor: pointer;
 }
 
 .menu {

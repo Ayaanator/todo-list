@@ -25,21 +25,28 @@
         </div>
         <!--Todos containers-->
         <div class="content">
-            <button id="todo-button" class="click-button">Add Todo</button>
-            <button id="todo-clear" class="click-button">Clear Completed</button>
+            <div class="button-container">
+                <button id="todo-button" class="click-button">Add Todo</button>
+                <button id="todo-clear" class="click-button">Clear Completed</button>
+            </div>
             <div id="todo-container">
                 <div class="todo high-priority">
-                    <img src="images/menu-right.svg" class="menu clickable">
-                    <img src="images/pencil.svg" class="edit clickable">
-                    <input type="checkbox" class="todo-complete">
-
                     <div class="todo-content">
-                        <h1>Todo Name</h1>
+                        <div class="todo-options">
+                            <img src="images/menu-right.svg" class="menu clickable">
+                            <img src="images/pencil.svg" class="edit clickable">
+                            <input type="checkbox" class="todo-complete clickable">
+                            <h1>Todo Name</h1>
+                        </div>
                         <img src="images/trash.svg" class="delete-todo">
                     </div>
 
-                   
-
+                    <div class="todo-info">
+                        <h2 class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. At molestias, sint maxime iste dicta atque, placeat facere neque, eligendi tempore quibusdam veniam fuga rerum quaerat magnam quasi harum animi impedit.</h2>
+                        <p class="due-date">
+                            <strong>Due Date:</strong> 2025-08-15
+                        </p> 
+                    </div>
                 </div>
 
                 <div class="todo high-priority">

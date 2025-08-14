@@ -64,50 +64,53 @@ export class Project {
     }
 
     create_todo(todo) {
+        const todo_info = document.createElement("div");
+        todo_info.className = "todo-info";
+
         // Outer content
         const todo_div = document.createElement("div");
         todo_div.classList.add("todo");
         todo_div.classList.add(todo.get_priority());
 
+        const todo_content = document.createElement("div");
+        todo_content.className = "todo-content";
+
+        const todo_options = document.createElement("div");
+        todo_options.className = "todo-options";
+
         const menu_button = document.createElement("img");
-        menu_button.classList.add("menu");
-        menu_button.classList.add("clickable");
+        menu_button.classList.add("menu", "clickable");
         menu_button.src = menu_icon;
 
-        const edit_button = document.createElement("img");
-        edit_button.classList.add("edit");
-        edit_button.classList.add("clickable");
-        edit_button.src = edit_icon;
-
-
-        todo_div.appendChild(menu_button);
-        todo_div.appendChild(edit_button);
-
         menu_button.addEventListener('click', () => {
-            menu_button.classList.toggle('open');
+            menu_button.classList.toggle("open");
             todo.toggle_open();
             console.log(`${todo.get_id()} open: ${todo.open}`);
+            todo_info.classList.toggle("show");
         });
+
+        const edit_button = document.createElement("img");
+        edit_button.classList.add("edit", "clickable");
+        edit_button.src = edit_icon;
 
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
-        checkbox.className = "todo-complete";
-        todo_div.appendChild(checkbox);
-
+        checkbox.classList.add("todo-complete", "clickable");
         checkbox.addEventListener("click", () => {
             todo.toogle_check();
             console.log(`${todo.get_id()} completed: ${todo.completed}`);
         });
 
-        // Inner content
-        const todo_content = document.createElement("div");
-        todo_content.className = "todo-content";
-
         const title = document.createElement("h1");;
         title.textContent = todo.get_name();
 
+        todo_options.appendChild(menu_button);
+        todo_options.appendChild(edit_button);
+        todo_options.appendChild(checkbox);
+        todo_options.appendChild(title);
+
         const deleter = document.createElement("img");
-        deleter.className = "delete-todo";
+        deleter.classList.add("delete-todo", "clickable");
         deleter.src = delete_icon;
 
         deleter.addEventListener("click", () => {
@@ -119,12 +122,32 @@ export class Project {
                 this.#todos.splice(index, 1);
             }
 
+            console.log("deleted!");
+
             this.update_todos();
         })
 
-        todo_content.appendChild(title);
+        todo_content.appendChild(todo_options);
         todo_content.appendChild(deleter);
+
+        const info = document.createElement("h2");
+        info.className = "description";
+        info.textContent = todo.get_description();
+
+        const date = document.createElement("p");
+        date.className = "due-date";
+
+        const label = document.createElement("strong");
+        label.textContent = "Due Date:";
+        date.appendChild(label);
+
+        date.append(` ${todo.get_due_date()}`); 
+
+        todo_info.appendChild(info);
+        todo_info.appendChild(date);
+
         todo_div.appendChild(todo_content);
+        todo_div.appendChild(todo_info);
 
         return todo_div;
     }
