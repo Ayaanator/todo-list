@@ -223,6 +223,17 @@ header img {
     padding: 10px;
 }
 
+/*.todo-info {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.todo-info.show {
+    max-height: 200px;
+}*/
+
+
 .high-priority {
     border-left: 30px solid var(--high-priority);
 }

@@ -6,7 +6,7 @@ export class ToDo {
     #todo_description;
     #todo_due_date;
     #todo_priority;
-    todo_completed;
+    completed;
     open;
 
     constructor(name, description, due_date, priority) {
@@ -16,7 +16,8 @@ export class ToDo {
         this.#todo_priority = priority;
 
         this.#todo_id = generate_random_id("todo");
-        this.todo_completed = false;
+        this.completed = false;
+        this.open = false;
     }
 
     get_id() { return this.#todo_id; }
@@ -26,4 +27,5 @@ export class ToDo {
     get_priority() { return this.#todo_priority; }
 
     toggle_open() { this.open = !this.open; }
+    toogle_check() { this.completed = !this.completed; }
 }

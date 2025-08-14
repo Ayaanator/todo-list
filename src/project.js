@@ -16,6 +16,7 @@ export class Project {
         this.#project_id = generate_random_id(name);
 
         this.todo_button = document.querySelector("#todo-button");
+        this.todo_clear = document.querySelector("#todo-clear");
         this.todo_modal = document.querySelector("#todo-modal");
         this.todo_form = document.querySelector("#todo-form");
         this.cancel_todo = document.querySelector("#cancel-todo");
@@ -85,13 +86,18 @@ export class Project {
         menu_button.addEventListener('click', () => {
             menu_button.classList.toggle('open');
             todo.toggle_open();
-            console.log(`${todo.get_id()}: ${todo.open}`);
+            console.log(`${todo.get_id()} open: ${todo.open}`);
         });
 
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.className = "todo-complete";
         todo_div.appendChild(checkbox);
+
+        checkbox.addEventListener("click", () => {
+            todo.toogle_check();
+            console.log(`${todo.get_id()} completed: ${todo.completed}`);
+        });
 
         // Inner content
         const todo_content = document.createElement("div");
