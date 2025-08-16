@@ -21,8 +21,8 @@ export class ToDo {
         this.open = is_open;
 
         this.#todo_id = generate_random_id("todo");
-        this.completed = false;
-        this.open = false;
+        this.completed = is_completed;
+        this.open = is_open;
         this.editing = false;
 
         this.edit_modal = document.querySelector("#edit-modal");
@@ -66,7 +66,6 @@ export class ToDo {
         this.#project.update_todos();
         this.close_modal();
         this.editing = false;
-        this.#project.set_false();
     }
 
     show_modal() {
@@ -90,6 +89,7 @@ export class ToDo {
     }
 
     toJSON() {
+        console.log(`todo beign sent!`);
         return {
             id: this.get_id(),
             name: this.get_name(),

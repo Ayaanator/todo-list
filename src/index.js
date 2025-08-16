@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
         loaded = true;
     }
 
-    const pfp = document.querySelector("#pfp");
+    const title = document.querySelector("#the-title");
     const theme = new ThemeToggler();
     const project_handler = new ProjectHandler();
 
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         loaded = true;
     }
 
-    pfp.addEventListener("click", () => {
+    title.addEventListener("click", () => {
         console.log(loaded);
         localStorage.setItem("loaded", "false");
     })

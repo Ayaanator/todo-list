@@ -1,3 +1,4 @@
+import { ProjectHandler } from "./project_handler.js";
 import { ToDo } from "./todo.js";
 import { generate_random_id } from "./utils.js";
 import delete_icon from "./images/trash.svg"
@@ -6,14 +7,15 @@ import edit_icon from "./images/pencil.svg"
 
 export class Project {
     #project_name;
+    #handler;
     #project_id;
     current;
 
     #todos = [];
 
-    constructor(name) {
+    constructor(name, id, is_current) {
         this.#project_name = name;
-        this.#project_id = generate_random_id(name);
+        this.#project_id = id;
 
         this.todo_button = document.querySelector("#todo-button");
         this.todo_clear = document.querySelector("#todo-clear");
@@ -34,7 +36,7 @@ export class Project {
             e.preventDefault(); 
         });
 
-        this.current = false;
+        this.current = is_current;
     }
 
     get_name() { return this.#project_name; }
@@ -49,7 +51,16 @@ export class Project {
         }   
     }
 
+    push_todo(name, description, due_date, priority, completed, is_open) {
+        const my_todo = new ToDo(name, description, due_date, priority, completed, is_open);
+        this.#todos.push(my_todo);
+        console.log(`Hello from project: ${this.#project_id} PUSHING P`);
+    }
+
     update_todos() {
+        console.log(`updatin todos! ${this.#project_id}`);
+        this.#handler.save_data();
+
         if(this.current == true) {
 
             while (this.todo_container.firstChild) {
@@ -87,6 +98,7 @@ export class Project {
             menu_button.classList.toggle("open");
             todo.toggle_open();
             todo_info.classList.toggle("show");
+            this.#handler.save_data();
         });
 
         if(todo.open) {
@@ -102,6 +114,7 @@ export class Project {
         edit_button.addEventListener("click", () => {
             todo.editing = true;
             todo.show_modal();
+            this.#handler.save_data();
         });
 
         const checkbox = document.createElement("input");
@@ -109,6 +122,7 @@ export class Project {
         checkbox.classList.add("todo-complete", "clickable");
         checkbox.addEventListener("click", () => {
             todo.toogle_check();
+            this.#handler.save_data();
         });
 
         checkbox.checked = todo.completed;
@@ -135,6 +149,7 @@ export class Project {
             }
 
             this.update_todos();
+            this.#handler.save_data();
         })
 
         todo_content.appendChild(todo_options);
@@ -187,11 +202,16 @@ export class Project {
         });
     }
 
+    link_handler(proj_handler) {
+        this.#handler = proj_handler;
+    }
+
     toJSON() {
         return {
             id: this.get_id(),
             name: this.get_name(),
-            todos: this.#todos.map(todo => todo.toJSON())
+            todos: this.#todos.map(todo => todo.toJSON()),
+            current: this.current
         };
     }
 }

@@ -1,4 +1,5 @@
 import { Project } from "./project";
+import { generate_random_id } from "./utils.js";
 
 import files_icon from './images/files.svg';
 import delete_icon from "./images/trash.svg"
@@ -6,8 +7,11 @@ import delete_icon from "./images/trash.svg"
 export class ProjectHandler {
     #projects = [];
     #current_project;
+    #current_project_id;
 
     constructor() {
+        this.#current_project_id = localStorage.getItem("current_project_id");
+
         // Projects
         this.button = document.querySelector("#project-button");
         this.project_modal = document.querySelector("#project-modal");
@@ -27,10 +31,20 @@ export class ProjectHandler {
         this.pfp.addEventListener("click", () => { this.debug(); });
         this.load_projects();
         this.update_projects();
+
+        this.#projects.forEach((val) => {
+            if(val.get_id() == this.#current_project_id) {
+                this.#current_project = val;
+                console.log(`found the right ${val.get_id()}`);
+            }
+        });
+        
+        this.#current_project.update_todos();
     }
 
     add_project(name) {
-        this.#projects.push(new Project(name));
+        const project = new Project(name, generate_random_id(name), false);
+        this.#projects.push(project);
         this.update_projects();
         this.close_modal();
     }
@@ -41,12 +55,12 @@ export class ProjectHandler {
         }
 
         this.#projects.forEach((val) => {
+            val.link_handler(this);
             const project = this.create_project(val);
             this.project_container.appendChild(project);
         });
 
-        const serialized = JSON.stringify(this.#projects.map(p => p.toJSON()));
-        localStorage.setItem("projects", serialized);
+        this.save_data();
     }
 
     create_project(project) {
@@ -85,6 +99,8 @@ export class ProjectHandler {
             if(project.current == true) {
                 project.clear_todos();
             }
+            
+            this.save_data();
         })
 
         // Switching functionality
@@ -98,6 +114,7 @@ export class ProjectHandler {
 
             project.current = true;
             this.#current_project = project;
+            this.#current_project_id = project.get_id();
             project.update_todos();
         })
 
@@ -135,6 +152,12 @@ export class ProjectHandler {
         );
     }
 
+    save_data() {
+        const serialized = JSON.stringify(this.#projects.map(p => p.toJSON()));
+        localStorage.setItem("projects", serialized);
+        localStorage.setItem("current_project_id", this.#current_project_id);
+    }
+
     load_projects() {        
         const saved = localStorage.getItem("projects");
         console.log("loading!");
@@ -142,10 +165,11 @@ export class ProjectHandler {
             const project_data = JSON.parse(saved);
 
             project_data.forEach(pd => {
-                const proj = new Project(pd.name);
-                proj.current = true; // if needed
+                const proj = new Project(pd.name, pd.id, pd.current);
+                
                 pd.todos.forEach(td => {
-                    proj.add_todo(td.name, td.description, td.due_date, td.priority, td.completed, td.open);
+                    console.log(`Hello from project: ${proj.get_id()} proj push!`);
+                    proj.push_todo(td.name, td.description, td.due_date, td.priority, td.completed, td.open);
                 });
 
                 this.#projects.push(proj);
