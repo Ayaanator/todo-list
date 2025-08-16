@@ -86,6 +86,11 @@ export class Project {
             todo_info.classList.toggle("show");
         });
 
+        if(todo.open) {
+            menu_button.classList.toggle("open");
+            todo_info.classList.toggle("show");
+        }
+
         const edit_button = document.createElement("img");
         edit_button.classList.add("edit", "clickable");
         edit_button.src = edit_icon;
