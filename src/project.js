@@ -24,7 +24,15 @@ export class Project {
 
         this.todo_button.addEventListener("click", () => {this.todo_modal.showModal();});
         this.cancel_todo.addEventListener("click", () => this.close_modal());
-        this.todo_form.addEventListener("submit", (e) => { e.preventDefault(); this.add_todo(); });
+        this.todo_form.addEventListener("submit", (e) => { 
+            const name = document.querySelector("#todo-name").value;
+            const description = document.querySelector("#description").value;
+            const due_date = document.querySelector("#due-date").value;
+            const priority = document.querySelector("#priority").value;
+            
+            this.add_todo(name, description, due_date, priority);
+            e.preventDefault(); 
+        });
 
         this.current = false;
     }
@@ -32,13 +40,8 @@ export class Project {
     get_name() { return this.#project_name; }
     get_id() { return this.#project_id; }
 
-    add_todo() {
+    add_todo(name, description, due_date, priority) {
         if(this.current == true) {
-            const name = document.querySelector("#todo-name").value;
-            const description = document.querySelector("#description").value;
-            const due_date = document.querySelector("#due-date").value;
-            const priority = document.querySelector("#priority").value;
-
             const my_todo = new ToDo(name, description, due_date, priority);
             this.#todos.push(my_todo);
             this.update_todos();

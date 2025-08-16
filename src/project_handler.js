@@ -18,13 +18,17 @@ export class ProjectHandler {
 
         this.button.addEventListener("click", () => {this.project_modal.showModal();});
         this.cancel_button.addEventListener("click", () => this.close_modal());
-        this.project_form.addEventListener("submit", (e) => { this.add_project(); e.preventDefault(); });
+
+        this.project_form.addEventListener("submit", (e) => { 
+            const project_name = document.getElementById("name").value;
+            this.add_project(project_name); e.preventDefault(); 
+        });
+
         this.pfp.addEventListener("click", () => {this.debug();});
     }
 
-    add_project() {
-        const project_name = document.getElementById("name").value;
-        this.#projects.push(new Project(project_name));
+    add_project(name) {
+        this.#projects.push(new Project(name));
         this.update_projects();
         this.close_modal();
     }
@@ -107,5 +111,22 @@ export class ProjectHandler {
         this.#projects.forEach((val) => {
             console.log(`${val.get_id()} ${val.current}`);
         });
+    }
+
+    add_example() {
+        this.add_project("Example Project");
+        this.#projects[0].current = true;
+
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const due_date = tomorrow.toISOString().split("T")[0];
+
+        this.#projects[0].add_todo("Example Todo", "This is a short description.",
+            due_date, "high-priority"
+        );
+
+        this.#projects[0].add_todo("Another Example Todo", "This is a another short description!",
+            due_date, "medium-priority"
+        );
     }
 }
