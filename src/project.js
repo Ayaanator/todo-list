@@ -48,7 +48,6 @@ export class Project {
 
     update_todos() {
         if(this.current == true) {
-            console.log(`${this.#project_id} updating todos: ${this.current}`);
 
             while (this.todo_container.firstChild) {
                 this.todo_container.removeChild(this.todo_container.firstChild);
@@ -59,8 +58,6 @@ export class Project {
                 val.link_project(this);
                 this.todo_container.appendChild(todo);
             });
-        } else {
-            console.log("false");
         }
     }
 
@@ -86,7 +83,6 @@ export class Project {
         menu_button.addEventListener("click", () => {
             menu_button.classList.toggle("open");
             todo.toggle_open();
-            console.log(`${todo.get_id()} open: ${todo.open}`);
             todo_info.classList.toggle("show");
         });
 
@@ -96,7 +92,6 @@ export class Project {
 
         
         edit_button.addEventListener("click", () => {
-            console.log("edit clicked!");
             todo.editing = true;
             todo.show_modal();
         });
@@ -106,7 +101,6 @@ export class Project {
         checkbox.classList.add("todo-complete", "clickable");
         checkbox.addEventListener("click", () => {
             todo.toogle_check();
-            console.log(`${todo.get_id()} completed: ${todo.completed}`);
         });
 
         const title = document.createElement("h1");;
@@ -129,8 +123,6 @@ export class Project {
                 this.#todos[index].current = false;
                 this.#todos.splice(index, 1);
             }
-
-            console.log("deleted!");
 
             this.update_todos();
         })
@@ -177,5 +169,11 @@ export class Project {
         while (this.todo_container.firstChild) {
             this.todo_container.removeChild(this.todo_container.firstChild);
         }
+    }
+
+    set_false() {
+        this.#todos.forEach((val) => {
+            val.editing = false;
+        });
     }
 }

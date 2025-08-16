@@ -44,9 +44,13 @@ export class ToDo {
 
     toggle_open() { this.open = !this.open; }
     toogle_check() { this.completed = !this.completed; }
-    link_project(proj) { this.#project = proj; console.log("linked!"); }
+    link_project(proj) { this.#project = proj; }
 
     update_self() {
+        if(!this.editing) {
+            return;
+        }
+
         const name = document.querySelector("#edit-name").value;
         const description = document.querySelector("#edit-description").value;
         const due_date = document.querySelector("#edit-due-date").value;
@@ -59,6 +63,8 @@ export class ToDo {
 
         this.#project.update_todos();
         this.close_modal();
+        this.editing = false;
+        this.#project.set_false();
     }
 
     show_modal() {
@@ -78,5 +84,6 @@ export class ToDo {
         this.edit_modal.close();
         this.edit_form.reset();
         this.editing = false;
+        this.#project.set_false();
     }
 }

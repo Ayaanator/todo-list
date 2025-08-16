@@ -89,7 +89,6 @@ export class ProjectHandler {
 
             project.current = true;
             this.#current_project = project;
-            console.log("running switch!");
             project.update_todos();
         })
 
