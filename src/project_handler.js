@@ -24,7 +24,9 @@ export class ProjectHandler {
             this.add_project(project_name); e.preventDefault(); 
         });
 
-        this.pfp.addEventListener("click", () => {this.debug();});
+        this.pfp.addEventListener("click", () => { this.debug(); });
+        this.load_projects();
+        this.update_projects();
     }
 
     add_project(name) {
@@ -42,6 +44,9 @@ export class ProjectHandler {
             const project = this.create_project(val);
             this.project_container.appendChild(project);
         });
+
+        const serialized = JSON.stringify(this.#projects.map(p => p.toJSON()));
+        localStorage.setItem("projects", serialized);
     }
 
     create_project(project) {
@@ -128,5 +133,23 @@ export class ProjectHandler {
         this.#projects[0].add_todo("Another Example Todo", "This is a another short description!",
             due_date, "medium-priority"
         );
+    }
+
+    load_projects() {        
+        const saved = localStorage.getItem("projects");
+        console.log("loading!");
+        if (saved) {
+            const project_data = JSON.parse(saved);
+
+            project_data.forEach(pd => {
+                const proj = new Project(pd.name);
+                proj.current = true; // if needed
+                pd.todos.forEach(td => {
+                    proj.add_todo(td.name, td.description, td.due_date, td.priority, td.completed, td.open);
+                });
+
+                this.#projects.push(proj);
+            });
+        }
     }
 }

@@ -12,11 +12,13 @@ export class ToDo {
     completed;
     open;
 
-    constructor(name, description, due_date, priority) {
+    constructor(name, description, due_date, priority, is_completed, is_open) {
         this.#todo_name = name;
         this.#todo_description = description;
         this.#todo_due_date = due_date;
         this.#todo_priority = priority;
+        this.completed = is_completed;
+        this.open = is_open;
 
         this.#todo_id = generate_random_id("todo");
         this.completed = false;
@@ -85,5 +87,17 @@ export class ToDo {
         this.edit_form.reset();
         this.editing = false;
         this.#project.set_false();
+    }
+
+    toJSON() {
+        return {
+            id: this.get_id(),
+            name: this.get_name(),
+            description: this.get_description(),
+            due_date: this.get_due_date(),
+            priority: this.get_priority(),
+            completed: this.completed,
+            open: this.open
+        };
     }
 }

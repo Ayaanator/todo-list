@@ -30,7 +30,7 @@ export class Project {
             const due_date = document.querySelector("#due-date").value;
             const priority = document.querySelector("#priority").value;
             
-            this.add_todo(name, description, due_date, priority);
+            this.add_todo(name, description, due_date, priority, false, false);
             e.preventDefault(); 
         });
 
@@ -40,9 +40,9 @@ export class Project {
     get_name() { return this.#project_name; }
     get_id() { return this.#project_id; }
 
-    add_todo(name, description, due_date, priority) {
+    add_todo(name, description, due_date, priority, completed, is_open) {
         if(this.current == true) {
-            const my_todo = new ToDo(name, description, due_date, priority);
+            const my_todo = new ToDo(name, description, due_date, priority, completed, is_open);
             this.#todos.push(my_todo);
             this.update_todos();
             this.close_modal();
@@ -110,6 +110,8 @@ export class Project {
         checkbox.addEventListener("click", () => {
             todo.toogle_check();
         });
+
+        checkbox.checked = todo.completed;
 
         const title = document.createElement("h1");;
         title.textContent = todo.get_name();
@@ -183,5 +185,13 @@ export class Project {
         this.#todos.forEach((val) => {
             val.editing = false;
         });
+    }
+
+    toJSON() {
+        return {
+            id: this.get_id(),
+            name: this.get_name(),
+            todos: this.#todos.map(todo => todo.toJSON())
+        };
     }
 }
