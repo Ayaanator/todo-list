@@ -35,7 +35,6 @@ export class ProjectHandler {
         this.#projects.forEach((val) => {
             if(val.get_id() == this.#current_project_id) {
                 this.#current_project = val;
-                console.log(`found the right ${val.get_id()}`);
             }
         });
         
@@ -90,14 +89,14 @@ export class ProjectHandler {
         files_img.addEventListener("click", () => {
             this.project_container.removeChild(project_div);
 
+            if(project.current == true) {
+                project.clear_todos();
+            }
+
             const index = this.#projects.findIndex(b => b.get_id() === project.get_id());
             if (index !== -1) {
                 this.#projects[index].current = false;
                 this.#projects.splice(index, 1);
-            }
-
-            if(project.current == true) {
-                project.clear_todos();
             }
             
             this.save_data();
@@ -160,7 +159,6 @@ export class ProjectHandler {
 
     load_projects() {        
         const saved = localStorage.getItem("projects");
-        console.log("loading!");
         if (saved) {
             const project_data = JSON.parse(saved);
 
@@ -168,12 +166,15 @@ export class ProjectHandler {
                 const proj = new Project(pd.name, pd.id, pd.current);
                 
                 pd.todos.forEach(td => {
-                    console.log(`Hello from project: ${proj.get_id()} proj push!`);
                     proj.push_todo(td.name, td.description, td.due_date, td.priority, td.completed, td.open);
                 });
 
                 this.#projects.push(proj);
             });
         }
+    }
+
+    choose_current() {
+
     }
 }

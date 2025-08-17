@@ -89,7 +89,6 @@ export class ToDo {
     }
 
     toJSON() {
-        console.log(`todo beign sent!`);
         return {
             id: this.get_id(),
             name: this.get_name(),

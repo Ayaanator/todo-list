@@ -36,6 +36,12 @@ export class Project {
             e.preventDefault(); 
         });
 
+        this.todo_clear.addEventListener("click", (e) => { 
+            this.#todos = this.#todos.filter(todo => !todo.completed);
+            this.update_todos();
+            this.#handler.save_data();
+        });
+
         this.current = is_current;
     }
 
@@ -54,11 +60,9 @@ export class Project {
     push_todo(name, description, due_date, priority, completed, is_open) {
         const my_todo = new ToDo(name, description, due_date, priority, completed, is_open);
         this.#todos.push(my_todo);
-        console.log(`Hello from project: ${this.#project_id} PUSHING P`);
     }
 
     update_todos() {
-        console.log(`updatin todos! ${this.#project_id}`);
         this.#handler.save_data();
 
         if(this.current == true) {

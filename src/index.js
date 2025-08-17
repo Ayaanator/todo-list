@@ -4,6 +4,24 @@ import { ProjectHandler } from "./project_handler.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    if (process.env.NODE_ENV !== 'production') {
+        console.log('Looks like we are in development mode!');
+    } else {
+        const stored_build = localStorage.getItem("BUILD_ID");
+
+        if (stored_build != __BUILD_ID__) {
+            console.log("New build detected, clearing localStorage...");
+
+            const new_build_id = __BUILD_ID__;
+            console.log(__BUILD_ID__);
+            console.log(stored_build);
+            console.log(new_build_id);
+            
+            localStorage.clear();
+            localStorage.setItem("BUILD_ID", new_build_id);
+        }
+    }
+
     let loaded = false;
 
     if(localStorage.getItem("loaded") === "true") {
