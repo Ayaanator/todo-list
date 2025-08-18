@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require('webpack');
 
 module.exports = {
   entry: "./src/index.js",
@@ -11,6 +12,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/template.html",
+    }),
+    new webpack.DefinePlugin({
+      __BUILD_ID__: JSON.stringify(Date.now()), // or use [fullhash] if you want
     }),
   ],
   module: {

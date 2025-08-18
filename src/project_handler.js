@@ -30,15 +30,18 @@ export class ProjectHandler {
 
         this.pfp.addEventListener("click", () => { this.debug(); });
         this.load_projects();
-        this.update_projects();
 
         this.#projects.forEach((val) => {
             if(val.get_id() == this.#current_project_id) {
                 this.#current_project = val;
             }
         });
-        
-        this.#current_project.update_todos();
+
+        this.update_projects();
+
+        if (this.#current_project) {
+            this.#current_project.update_todos();
+        }
     }
 
     add_project(name) {
@@ -135,7 +138,10 @@ export class ProjectHandler {
     }
 
     add_example() {
+        
         this.add_project("Example Project");
+        this.#current_project = this.#projects[0];
+        this.#current_project_id = this.#projects[0].get_id();
         this.#projects[0].current = true;
 
         const tomorrow = new Date();
@@ -149,6 +155,8 @@ export class ProjectHandler {
         this.#projects[0].add_todo("Another Example Todo", "This is a another short description!",
             due_date, "medium-priority"
         );
+
+        this.save_data();
     }
 
     save_data() {
@@ -164,6 +172,10 @@ export class ProjectHandler {
 
             project_data.forEach(pd => {
                 const proj = new Project(pd.name, pd.id, pd.current);
+
+                if(proj.get_id() == localStorage.getItem("current_project_id")) {
+                    this.#current_project = proj;
+                }
                 
                 pd.todos.forEach(td => {
                     proj.push_todo(td.name, td.description, td.due_date, td.priority, td.completed, td.open);
