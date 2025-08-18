@@ -92,14 +92,17 @@ export class ProjectHandler {
         files_img.addEventListener("click", () => {
             this.project_container.removeChild(project_div);
 
-            if(project.current == true) {
-                project.clear_todos();
-            }
+            let was_current = project.current;
 
             const index = this.#projects.findIndex(b => b.get_id() === project.get_id());
             if (index !== -1) {
                 this.#projects[index].current = false;
                 this.#projects.splice(index, 1);
+            }
+
+            if(was_current) {
+                project.clear_todos();
+                this.choose_current();
             }
             
             this.save_data();
@@ -187,6 +190,11 @@ export class ProjectHandler {
     }
 
     choose_current() {
-
+        if(this.#projects.length > 0) {
+            this.#current_project = this.#projects[0];
+            this.#current_project.current = true;
+            this.#current_project_id = this.#projects[0].get_id();
+            this.#projects[0].update_todos();
+        }
     }
 }
