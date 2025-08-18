@@ -1,6 +1,8 @@
 import { ProjectHandler } from "./project_handler.js";
 import { ToDo } from "./todo.js";
-import { generate_random_id } from "./utils.js";
+
+import { style_priority_select } from "./utils.js";
+
 import delete_icon from "./images/trash.svg"
 import menu_icon from "./images/menu-right.svg"
 import edit_icon from "./images/pencil.svg"
@@ -24,7 +26,9 @@ export class Project {
         this.cancel_todo = document.querySelector("#cancel-todo");
         this.todo_container = document.querySelector("#todo-container");
 
-        this.todo_button.addEventListener("click", () => {this.todo_modal.showModal();});
+        this.todo_button.addEventListener("click", () => { this.todo_modal.showModal(); 
+            style_priority_select(document.getElementById("priority"));
+        });
         this.cancel_todo.addEventListener("click", () => this.close_modal());
         this.todo_form.addEventListener("submit", (e) => { 
             const name = document.querySelector("#todo-name").value;

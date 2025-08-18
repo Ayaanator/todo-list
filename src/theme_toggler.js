@@ -1,5 +1,5 @@
-import dark_icon from './images/dark-mode.svg';
-import light_icon from './images/light-mode.svg';
+import dark_icon from "./images/dark-mode.svg";
+import light_icon from "./images/light-mode.svg";
 
 export class ThemeToggler {
     #dark_mode = true; 

@@ -1,4 +1,6 @@
 import { generate_random_id } from "./utils.js";
+import { style_priority_select } from "./utils.js";
+
 import { Project } from "./project";
 export class ToDo {
     #todo_id;
@@ -70,6 +72,7 @@ export class ToDo {
 
     show_modal() {
         this.edit_modal.showModal();
+        
         const name = document.querySelector("#edit-name");
         const description = document.querySelector("#edit-description");
         const due_date = document.querySelector("#edit-due-date");
@@ -79,6 +82,8 @@ export class ToDo {
         description.value = this.#todo_description;
         due_date.value = this.#todo_due_date;
         priority.value = this.#todo_priority;
+
+        style_priority_select(document.getElementById("edit-priority"));
     }
 
     close_modal() {

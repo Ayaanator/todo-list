@@ -1,7 +1,7 @@
 import { Project } from "./project";
 import { generate_random_id } from "./utils.js";
 
-import files_icon from './images/files.svg';
+import files_icon from "./images/files.svg";
 import delete_icon from "./images/trash.svg"
 
 export class ProjectHandler {
@@ -81,11 +81,11 @@ export class ProjectHandler {
         })
 
         // Delete functionality
-        files_img.addEventListener('mouseenter', () => {
+        files_img.addEventListener("mouseenter", () => {
             files_img.src = delete_icon;
         });
 
-        files_img.addEventListener('mouseleave', () => {
+        files_img.addEventListener("mouseleave", () => {
             files_img.src = files_icon;
         });
 

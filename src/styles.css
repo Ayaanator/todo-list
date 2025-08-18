@@ -170,6 +170,18 @@ header img {
     border: none;
 }
 
+form select.low {
+    color: var(--low-priority);
+}
+
+form select.medium {
+    color: var(--medium-priority);
+}
+
+form select.high {
+    color: var(--high-priority);
+}
+
 .form input {
     padding: 5px;
 }
